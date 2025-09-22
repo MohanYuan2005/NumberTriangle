@@ -115,7 +115,6 @@ public class NumberTriangle {
         NumberTriangle top = null;
         String line = br.readLine();
         while (line != null) {
-
             String trimmed = line.trim();
             if (!trimmed.isEmpty()) {
                 String[] parts = trimmed.split("\\s+");
