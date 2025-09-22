@@ -1,5 +1,4 @@
 import java.io.*;
-
 /**
  * This is the provided NumberTriangle class to be used in this coding task.
  *
@@ -88,8 +87,14 @@ public class NumberTriangle {
      *
      */
     public int retrieve(String path) {
-        // TODO implement this method
-        return -1;
+        NumberTriangle current = this;
+        for  (int i = 0; i < path.length(); i++) {
+            char ch = path.charAt(i);
+            if (ch == 'l'){current = current.left;}
+            else if (ch == 'r'){current = current.right;}
+        }
+        return current.getRoot();
+
     }
 
     /** Read in the NumberTriangle structure from a file.
@@ -108,25 +113,38 @@ public class NumberTriangle {
         // are more convenient to work with when reading the file contents.
         InputStream inputStream = NumberTriangle.class.getClassLoader().getResourceAsStream(fname);
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-
-
-        // TODO define any variables that you want to use to store things
+        java.util.List<NumberTriangle> previous_row = null;
 
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
-
         String line = br.readLine();
         while (line != null) {
+            String trim = line.trim();
+            if (!trim.isEmpty()) {
+                String[] parts = trim.split("\\s+");
+                java.util.List<NumberTriangle> row = new java.util.ArrayList<>(parts.length);
 
-            // remove when done; this line is included so running starter code prints the contents of the file
-            System.out.println(line);
+                for (String p : parts) {row.add(new NumberTriangle(Integer.parseInt(p)));}
 
-            // TODO process the line
+                if (previous_row != null) {
+                    for (int i = 0; i < row.size(); i++) {
+                        NumberTriangle child = row.get(i);
+                        if (i < previous_row.size()) {
+                            previous_row.get(i).setLeft(child);
+                        }
+                        if (i > 0) {
+                            previous_row.get(i - 1).setRight(child);
+                        }
+                    }
+                } else {
+                    top = row.get(0);
+                }
+
+                previous_row = row;}
 
             //read the next line
-            line = br.readLine();
-        }
+            line = br.readLine();}
         br.close();
         return top;
     }
