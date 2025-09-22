@@ -145,8 +145,7 @@ public class NumberTriangle {
                 previous_row = row;}
 
             //read the next line
-            line = br.readLine();
-        }
+            line = br.readLine();}
         br.close();
         return top;
     }
