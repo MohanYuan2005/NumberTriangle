@@ -113,7 +113,6 @@ public class NumberTriangle {
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
-
         String line = br.readLine();
         while (line != null) {
 
